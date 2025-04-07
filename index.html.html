@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leandro Galeano | DevOps Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --terminal-bg: #0c0c0c;
+            --terminal-text: #cccccc;
+            --terminal-prompt: #569cd6;
+            --terminal-success: #6A9955;
+            --terminal-error: #f44747;
+            --cv-bg: #f5f5f5;
+            --cv-text: #333333;
+            --accent-color: #0078d4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Consolas', monospace;
+        }
+
+        body {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Terminal Section */
+        .terminal-section {
+            width: 50%;
+            height: 100vh;
+            background-color: var(--terminal-bg);
+            color: var(--terminal-text);
+            padding: 20px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .terminal-title {
+            font-weight: bold;
+            color: white;
+        }
+
+        .terminal-controls span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .control-close { background-color: #ff5f56; }
+        .control-minimize { background-color: #ffbd2e; }
+        .control-maximize { background-color: #27c93f; }
+
+        .terminal-content {
+            height: calc(100% - 40px);
+            overflow-y: auto;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .terminal-line {
+            margin-bottom: 5px;
+        }
+
+        .prompt {
+            color: var(--terminal-prompt);
+            font-weight: bold;
+        }
+
+        .success {
+            color: var(--terminal-success);
+        }
+
+        .error {
+            color: var(--terminal-error);
+        }
+
+        .command-input {
+            background: transparent;
+            border: none;
+            color: var(--terminal-text);
+            width: 70%;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+            outline: none;
+        }
+
+        /* CV Section */
+        .cv-section {
+            width: 50%;
+            height: 100vh;
+            background-color: var(--cv-bg);
+            color: var(--cv-text);
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .cv-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .cv-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .cv-header p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .cv-section-title {
+            margin: 25px 0 15px;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 5px;
+            color: var(--accent-color);
+        }
+
+        .cv-item {
+            margin-bottom: 20px;
+        }
+
+        .cv-item h3 {
+            margin-bottom: 5px;
+        }
+
+        .cv-item .date {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .skill-tag {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .social-icons a {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .terminal-section {
+                display: none;
+            }
+
+            .cv-section {
+                width: 100%;
+                height: auto;
+                padding: 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: var(--terminal-text);
+            margin-left: 5px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+            animation: typing 3.5s steps(40, end);
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        .input-line {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Terminal Section -->
+    <div class="terminal-section">
+        <div class="terminal-header">
+            <div class="terminal-title">PowerShell 7.0.0</div>
+            <div class="terminal-controls">
+                <span class="control-minimize"></span>
+                <span class="control-maximize"></span>
+                <span class="control-close"></span>
+            </div>
+        </div>
+        <div class="terminal-content" id="terminal-content">
+            <div class="terminal-line">Microsoft Windows [Version 10.0.19044.3803]</div>
+            <div class="terminal-line">(c) Microsoft Corporation. All rights reserved.</div>
+            <div class="terminal-line">Starting PowerShell session for Leandro Galeano's CV...</div>
+            <div class="terminal-line">Type <span class="success">Get-Help</span> to see available commands.</div>
+            <div class="terminal-line input-line">
+                <span class="prompt">PS C:\Users\Visitor> </span>
+                <span id="current-command"></span><span class="cursor"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CV Section -->
+    <div class="cv-section">
+        <div class="cv-header">
+            <h1>Leandro Hernán Galeano</h1>
+            <p>Senior System Engineer - DevOps</p>
+            
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/leandro-galeano" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:leandro.galeano@live.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.youracclaim.com/users/leandro-galeano/badges" target="_blank"><i class="fas fa-certificate"></i></a>
+                <a href="#" id="download-resume"><i class="fas fa-file-download"></i></a>
+            </div>
+        </div>
+
+        <div class="contact-info">
+            <a href="#"><i class="fas fa-map-marker-alt"></i> Málaga (29006), Spain</a>
+            <a href="tel:+34617560917"><i class="fas fa-phone"></i> +34 617 56 09 17</a>
+            <a href="mailto:leandro.galeano@live.com"><i class="fas fa-envelope"></i> leandro.galeano@live.com</a>
+        </div>
+
+        <h2 class="cv-section-title">Profile Summary</h2>
+        <p>I am a strong, skillful, and self-organized Systems Engineer with 15+ years of experience managing various infrastructure and platforms, optimizing the existing environments and connecting with the business needs. Good understanding of Infrastructure-as-Code concepts. Experienced team leader and career coach. Proven experience in automation, scalability, migration to public cloud and DevOps. Microsoft certified. Native Spanish.</p>
+
+        <h2 class="cv-section-title">Skills</h2>
+        <div class="skills-container">
+            <span class="skill-tag">Windows Server</span>
+            <span class="skill-tag">Azure</span>
+            <span class="skill-tag">AWS</span>
+            <span class="skill-tag">PowerShell</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Kubernetes</span>
+            <span class="skill-tag">Infrastructure-as-Code</span>
+            <span class="skill-tag">DevOps</span>
+            <span class="skill-tag">VMWare</span>
+            <span class="skill-tag">Hyper-V</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">VBScript</span>
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">Cloud Migration</span>
+            <span class="skill-tag">System Center</span>
+        </div>
+
+        <h2 class="cv-section-title">Professional Experience</h2>
+        
+        <div class="cv-item">
+            <h3>Senior System Engineer - DevOps</h3>
+            <div class="date">EPAM Spain • Aug 2022 – Present</div>
+            <p>As a DevOps Engineer on one of EPAM's largest customer projects, I played a crucial role in delivering a highly resilient and agile infrastructure to support Development and QA teams. Utilizing a WinOps toolset including Azure DevOps, Azure cloud services, Chef, NuGet, PowerShell, Windows Server, and Docker, I helped improve the customer's infrastructure. Additionally, I worked with cutting-edge security tools like Ilumio and CyberArk to ensure the safety and security of the customer's infrastructure.</p>
+        </div>
+
+        <div class="cv-item">
+            <h3>Cloud Migration Specialist</h3>
+            <div class="date">MicroStrategy • May 2022 – Aug 2022</div>
+            <p>I assisted customers in modernizing their consumption of MicroStrategy products by migrating from on-premises servers to fully managed cloud platforms on AWS or Azure, tailored to meet each customer's specific needs. My responsibilities included conducting assessments to determine the best approach for each customer, managing network integration, provisioning environments, transforming and loading customer metadata, troubleshooting issues, and ensuring a positive user experience.</p>
+        </div>
+
+        <div class="cv-item">
+            <h3>IT Consultant</h3>
+            <div class="date">Freelance • Mar 2020 – Aug 2022</div>
+            <p>I successfully provided consultation services for the company's transition to Azure cloud, including capacity assessment, documentation, and implementation of the best fitting approach. Through this process, we successfully migrated two core services and a testing/lab environment from physical hardware in a co-location datacenter to Azure IaaS and PaaS.</p>
+        </div>
+
+        <h2 class="cv-section-title">Education</h2>
+        <div class="cv-item">
+            <h3>System Analyst Degree</h3>
+            <div class="date">Instituto Superior Particular Incorporado Nº 4011 "Gral. Manuel Belgrano"</div>
+            <p>3 credits left to completion</p>
+        </div>
+
+        <div class="cv-item">
+            <h3>Humanities and Social Sciences Degree</h3>
+            <div class="date">Escuela Media Particular Incorporada N° 3105 "Santa Teresita del Niño Jesús"</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const terminalContent = document.getElementById('terminal-content');
+            const currentCommandEl = document.getElementById('current-command');
+            let currentCommand = '';
+            let commandHistory = [];
+            let historyIndex = -1;
+            
+            const commands = [
+                'Get-Experience', 
+                'Get-Skills', 
+                'Get-Education', 
+                'Get-Contact', 
+                'Get-Projects', 
+                'Clear-Host', 
+                'cls',
+                'Download-Resume',
+                'Run-Coffee.ps1',
+                'Get-Help',
+                'help'
+            ];
+
+            // Function to add a new line to the terminal
+            function addLine(text, className = '') {
+                const line = document.createElement('div');
+                line.className = 'terminal-line';
+                if (className) line.classList.add(className);
+                line.textContent = text;
+                terminalContent.insertBefore(line, terminalContent.lastElementChild);
+            }
+
+            // Function to add a command prompt line for the next input
+            function addPromptLine() {
+                const line = document.createElement('div');
+                line.className = 'terminal-line input-line';
+                line.innerHTML = '<span class="prompt">PS C:\\Users\\Visitor> </span><span id="current-command"></span><span class="cursor"></span>';
+                terminalContent.appendChild(line);
+                terminalContent.removeChild(terminalContent.lastElementChild.previousElementSibling);
+                currentCommandEl = document.getElementById('current-command');
+                terminalContent.scrollTop = terminalContent.scrollHeight;
+            }
+
+            // Process the command and display results
+            function processCommand(cmd) {
+                // Remove current input line
+                terminalContent.removeChild(terminalContent.lastElementChild);
+                
+                // Add executed command as a line
+                const commandLine = document.createElement('div');
+                commandLine.className = 'terminal-line';
+                commandLine.innerHTML = `<span class="prompt">PS C:\\Users\\Visitor> </span>${cmd}`;
+                terminalContent.appendChild(commandLine);
+                
+                // Add to history
+                if (cmd.trim() !== '') {
+                    commandHistory.unshift(cmd);
+                    historyIndex = -1;
+                }
+                
+                const lowerCmd = cmd.toLowerCase().trim();
+                
+                // Process command
+                if (lowerCmd === 'get-experience') {
+                    addLine('PROFESSIONAL EXPERIENCE:', 'success');
+                    addLine('SENIOR SYSTEM ENGINEER - DEVOPS. EPAM SPAIN.');
+                    addLine('Aug 2022 – Present');
+                    addLine('As a DevOps Engineer on one of EPAM\'s largest customer projects, I played a crucial role in delivering a highly resilient and agile infrastructure to support Development and QA teams.');
+                    
+                    addLine('CLOUD MIGRATION SPECIALIST. MICROSTRATEGY.');
+                    addLine('May 2022 – Aug 2022');
+                    addLine('I assisted customers in modernizing their consumption of MicroStrategy products by migrating from on-premises servers to fully managed cloud platforms on AWS or Azure.');
+                    
+                    addLine('IT CONSULTANT. FREELANCE.');
+                    addLine('Mar 2020 – Aug 2022');
+                    addLine('I successfully provided consultation services for the company\'s transition to Azure cloud, including capacity assessment, documentation, and implementation of the best fitting approach.');
+                }
+                else if (lowerCmd === 'get-skills') {
+                    addLine('SKILLS:', 'success');
+                    addLine('CLOUD & INFRASTRUCTURE:');
+                    addLine('- Azure, AWS, VMWare, Hyper-V');
+                    addLine('- Windows Server 2008 R2 and newer');
+                    addLine('- Red Hat Enterprise Linux and Ubuntu Server');
+                    
+                    addLine('DEVELOPMENT & AUTOMATION:');
+                    addLine('- PowerShell, VBScript, Python');
+                    addLine('- Docker, Docker-Compose, Kubernetes');
+                    addLine('- Infrastructure-as-Code');
+                    
+                    addLine('MANAGEMENT & COMPLIANCE:');
+                    addLine('- ITIL, Six Sigma, HIPAA, GDPR, PCI compliance');
+                    addLine('- Leadership and contractor management');
+                    addLine('- Microsoft System Center suite (SCOM, SCCM, SCSM, Orchestrator)');
+                }
+                else if (lowerCmd === 'get-education') {
+                    addLine('EDUCATION:', 'success');
+                    addLine('INSTITUTO SUPERIOR PARTICULAR INCORPORADO Nº 4011 "GRAL. MANUEL BELGRANO"');
+                    addLine('System Analyst Degree. 3 credits left to completion.');
+                    
+                    addLine('ESCUELA MEDIA PARTICULAR INCORPORADA N° 3105 "SANTA TERESITA DEL NIÑO JESÚS".');
+                    addLine('Humanities and Social Sciences Degree.');
+                }
+                else if (lowerCmd === 'get-contact') {
+                    addLine('CONTACT INFORMATION:', 'success');
+                    addLine('Location: Málaga (29006), Spain');
+                    addLine('Phone: +34 617 56 09 17');
+                    addLine('Email: leandro.galeano@live.com');
+                    addLine('LinkedIn: https://www.linkedin.com/in/leandro-galeano');
+                    addLine('Badges: https://www.youracclaim.com/users/leandro-galeano/badges');
+                }
+                else if (lowerCmd === 'get-projects') {
+                    addLine('HIGHLIGHTED PROJECTS:', 'success');
+                    addLine('AZURE CLOUD MIGRATION (2020-2022):');
+                    addLine('- Successfully migrated two core services and a testing/lab environment from physical hardware to Azure IaaS and PaaS');
+                    addLine('- Implemented automation using PowerShell for repetitive server maintenance tasks');
+                    
+                    addLine('DEVOPS INFRASTRUCTURE IMPROVEMENT (2022-Present):');
+                    addLine('- Delivered highly resilient and agile infrastructure using WinOps toolset');
+                    addLine('- Implemented cutting-edge security tools like Ilumio and CyberArk');
+                    
+                    addLine('CLOUD MIGRATION AUTOMATION (2022):');
+                    addLine('- Developed solution to replace third-party paid software with open-source products and custom scripts');
+                    addLine('- Created easy and user-friendly access to AWS S3 or Azure blob storage on Windows');
+                }
+                else if (lowerCmd === 'clear-host' || lowerCmd === 'cls') {
+                    // Clear terminal except the header
+                    while (terminalContent.childElementCount > 1) {
+                        terminalContent.removeChild(terminalContent.firstElementChild);
+                    }
+                    addLine('Microsoft Windows [Version 10.0.19044.3803]');
+                    addLine('(c) Microsoft Corporation. All rights reserved.');
+                    addLine('Starting PowerShell session for Leandro Galeano\'s CV...');
+                    addLine('Type Get-Help to see available commands.', 'success');
+                }
+                else if (lowerCmd === 'download-resume') {
+                    addLine('Initiating download of resume...', 'success');
+                    addLine('Note: This is a simulation. In a real implementation, this would download the actual PDF resume.');
+                }
+                else if (lowerCmd === 'run-coffee.ps1') {
+                    addLine('☕ Brewing virtual coffee... ☕', 'success');
+                    addLine('░░░░░░░░░░░░░░░░░░░░░░░░░░░░░');
+                    addLine('░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░');
+                    addLine('░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░');
+                    addLine('░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░');
+                    addLine('░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░');
+                    addLine('░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░');
+                    addLine('░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░');
+                    addLine('░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░');
+                    addLine('░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░');
+                    addLine('░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░');
+                    addLine('░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░');
+                    addLine('░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░');
+                    addLine('░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░');
+                    addLine('░░░░░░░░░░░░░░░░░░░░░░░░░░░░░');
+                    addLine('Coffee break activated! Sometimes the best solutions come during a coffee break.');
+                }
+                else if (lowerCmd === 'help' || lowerCmd === 'get-help') {
+                    addLine('NAME', 'success');
+                    addLine('    CV - Interactive Curriculum Vitae for Leandro Galeano');
+                    addLine('SYNOPSIS', 'success');
+                    addLine('    Explore Leandro Galeano\'s professional experience, skills, and background.');
+                    addLine('COMMANDS', 'success');
+                    addLine('    Get-Experience        : Display professional experience');
+                    addLine('    Get-Skills            : List technical skills and proficiencies');
+                    addLine('    Get-Education         : Show educational background');
+                    addLine('    Get-Contact           : Display contact information');
+                    addLine('    Get-Projects          : View highlighted projects');
+                    addLine('    Clear-Host or cls     : Clear terminal screen');
+                    addLine('    Download-Resume       : Download full resume as PDF');
+                    addLine('    Run-Coffee.ps1        : Take a coffee break!');
+                }
+                else if (lowerCmd === '') {
+                    // Do nothing for empty command
+                }
+                else {
+                    addLine(`The term '${cmd}' is not recognized as a cmdlet, function, script file, or operable program.`, 'error');
+                    addLine('Type "Get-Help" to see available commands.', 'error');
+                }
+                
+                // Add new prompt line
+                addPromptLine();
+            }
+
+            // Autocomplete functionality
+            function autocomplete(text) {
+                if (!text) return null;
+                
+                const matches = commands.filter(cmd => 
+                    cmd.toLowerCase().startsWith(text.toLowerCase())
+                );
+                
+                if (matches.length === 1) {
+                    return matches[0];
+                }
+                
+                return null;
+            }
+
+            // Handle keyboard input
+            document.addEventListener('keydown', function(e) {
+                // Only process input when not on mobile
+                if (window.innerWidth <= 768) return;
+                
+                if (e.key === 'Enter') {
+                    const cmd = currentCommandEl.textContent;
+                    processCommand(cmd);
+                    currentCommand = '';
+                    e.preventDefault();
+                } 
+                else if (e.key === 'Backspace') {
+                    if (currentCommandEl.textContent.length > 0) {
+                        currentCommandEl.textContent = currentCommandEl.textContent.slice(0, -1);
+                        currentCommand = currentCommandEl.textContent;
+                    }
+                    e.preventDefault();
+                } 
+                else if (e.key === 'ArrowUp') {
+                    if (commandHistory.length > 0 && historyIndex < commandHistory.length - 1) {
+                        historyIndex++;
+                        currentCommandEl.textContent = commandHistory[historyIndex];
+                    }
+                    e.preventDefault();
+                } 
+                else if (e.key === 'ArrowDown') {
+                    if (historyIndex > 0) {
+                        historyIndex--;
+                        currentCommandEl.textContent = commandHistory[historyIndex];
+                    } else if (historyIndex === 0) {
+                        historyIndex = -1;
+                        currentCommandEl.textContent = '';
+                    }
+                    e.preventDefault();
+                } 
+                else if (e.key === 'Tab') {
+                    const completed = autocomplete(currentCommandEl.textContent);
+                    if (completed) {
+                        currentCommandEl.textContent = completed;
+                    }
+                    e.preventDefault();
+                } 
+                else if (e.key.length === 1 && !e.ctrlKey && !e.altKey && !e.metaKey) {
+                    currentCommandEl.textContent += e.key;
+                    currentCommand = currentCommandEl.textContent;
+                }
+            });
+            
+            // Make terminal section clickable to focus
+            terminalContent.addEventListener('click', function() {
+                // Visual indication that terminal is focused (optional)
+                terminalContent.style.outline = "none";
+                // Focus on the document to capture keystrokes
+                document.body.focus();
+            });
+            
+            // Handle download resume click
+            document.getElementById('download-resume').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('This would download the resume PDF in a real implementation.');
+            });
+            
+            // Make the terminal content area focusable
+            terminalContent.setAttribute('tabindex', '0');
+            
+            // Initial focus on terminal
+            terminalContent.focus();
+        });
+    </script>
+</body>
+</html>
