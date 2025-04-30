@@ -251,12 +251,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.focus();
     });
     
-    // Handle download resume click
-    document.getElementById('download-resume').addEventListener('click', function(e) {
-        e.preventDefault();
-        alert('This would download the resume PDF in a real implementation.');
-    });
-    
     // Make the terminal content area focusable
     terminalContent.setAttribute('tabindex', '0');
     

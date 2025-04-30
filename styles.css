@@ -192,6 +192,67 @@
         .social-icons a:hover {
             transform: scale(1.2);
         }
+		
+		.skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-top: 15px;
+		}
+		
+		.skill-category {
+			margin-bottom: 15px;
+		}
+		
+		.skill-category-title {
+			font-weight: bold;
+			color: var(--accent-color);
+			margin-bottom: 8px;
+			border-bottom: 1px solid var(--accent-color);
+			padding-bottom: 3px;
+			display: flex;
+			align-items: center;
+		}
+		
+		.skill-category-title i {
+			margin-right: 8px;
+		}
+		
+		.skill-item {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 5px;
+			font-size: 0.95rem;
+		}
+		
+		.skill-name {
+			flex-basis: 60%;
+		}
+		
+		.skill-level {
+			color: var(--accent-color);
+		}
+		
+		.skill-dot {
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background-color: var(--accent-color);
+			margin-right: 2px;
+			display: inline-block;
+		}
+		
+		.skill-dot.empty {
+			background-color: transparent;
+			border: 1px solid var(--accent-color);
+		}
+		
+		/* For smaller screens */
+		@media (max-width: 900px) {
+			.skills-grid {
+				grid-template-columns: 1fr;
+			}
+		}
 
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
