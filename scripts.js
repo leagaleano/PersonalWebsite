@@ -256,4 +256,67 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Initial focus on terminal
     terminalContent.focus();
+	
+	// Experience toggling functionality - FIXED VERSION
+	// First, find the Professional Experience section
+	const experienceSectionTitle = Array.from(document.querySelectorAll('.cv-section-title')).find(
+		title => title.textContent.includes('Professional Experience')
+	);
+
+	// Only proceed if we found the experience section
+	if (experienceSectionTitle) {
+		// Get all experience items that are direct siblings after the title until the next section title
+		const experienceItems = [];
+		let currentElement = experienceSectionTitle.nextElementSibling;
+		
+		// Collect all consecutive cv-item elements until we hit the next section title
+		while (currentElement && !currentElement.classList.contains('cv-section-title')) {
+			if (currentElement.classList.contains('cv-item')) {
+				experienceItems.push(currentElement);
+			}
+			currentElement = currentElement.nextElementSibling;
+		}
+		
+		// Only add the toggle button if we have more than 4 experience items
+		if (experienceItems.length > 4) {
+			const toggleButton = document.createElement('button');
+			toggleButton.id = 'toggle-experience';
+			toggleButton.className = 'toggle-button';
+			toggleButton.innerHTML = '<i class="fas fa-chevron-down"></i> Show more';
+			
+			// Hide items beyond the first 4
+			experienceItems.forEach((item, index) => {
+				if (index >= 4) {
+					item.classList.add('hidden-experience');
+				}
+			});
+			
+			// Insert button after the 4th experience item
+			experienceItems[3].after(toggleButton);
+			
+			// Add click event to toggle visibility
+			toggleButton.addEventListener('click', function() {
+				const hiddenItems = document.querySelectorAll('.hidden-experience');
+				const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+				
+				hiddenItems.forEach(item => {
+					item.classList.toggle('show');
+				});
+				
+				if (isExpanded) {
+					toggleButton.innerHTML = '<i class="fas fa-chevron-down"></i> Show more';
+					toggleButton.setAttribute('aria-expanded', 'false');
+					// Scroll to where the button is
+					toggleButton.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+				} else {
+					toggleButton.innerHTML = '<i class="fas fa-chevron-up"></i> Show less';
+					toggleButton.setAttribute('aria-expanded', 'true');
+				}
+			});
+			
+			// Initialize aria-expanded state
+			toggleButton.setAttribute('aria-expanded', 'false');
+		}
+	}
 });
+
