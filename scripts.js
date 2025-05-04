@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
         'Get-Projects', 
         'Clear-Host', 
         'cls',
-        'Download-Resume',
+        'Download-CV',
         'Run-Coffee.ps1',
         'Get-Help',
         'help'
@@ -62,8 +62,13 @@ document.addEventListener("DOMContentLoaded", function() {
         // Process command
         if (lowerCmd === 'get-experience') {
             addLine('PROFESSIONAL EXPERIENCE:', 'success');
+			
+			addLine('STRONG MIDDLE DEVOPS ENGINEER. INTELLIAS SPAIN.');
+            addLine('Aug 2022 – Dec 2023');
+            addLine('DevOps Engineer for a Spanish iGaming gambling company, I automated many processes from QA and Web Frontend Development reducing time to release from weeks to days while maintaining QA processes and business standards');
+			
             addLine('SENIOR SYSTEM ENGINEER - DEVOPS. EPAM SPAIN.');
-            addLine('Aug 2022 – Present');
+            addLine('Aug 2022 – Dec 2023');
             addLine('As a DevOps Engineer on one of EPAM\'s largest customer projects, I played a crucial role in delivering a highly resilient and agile infrastructure to support Development and QA teams.');
             
             addLine('CLOUD MIGRATION SPECIALIST. MICROSTRATEGY.');
@@ -79,29 +84,29 @@ document.addEventListener("DOMContentLoaded", function() {
             addLine('CLOUD & INFRASTRUCTURE:');
             addLine('- Azure, AWS, VMWare, Hyper-V');
             addLine('- Windows Server 2008 R2 and newer');
-            addLine('- Red Hat Enterprise Linux and Ubuntu Server');
+            addLine('- Ubuntu Server');
             
             addLine('DEVELOPMENT & AUTOMATION:');
-            addLine('- PowerShell, VBScript, Python');
+            addLine('- PowerShell, Python');
+			addLine('- Azure DevOps');
             addLine('- Docker, Docker-Compose, Kubernetes');
-            addLine('- Infrastructure-as-Code');
+			addLine('- Microsoft System Center suite (SCOM, SCCM, SCSM, Orchestrator)');
             
             addLine('MANAGEMENT & COMPLIANCE:');
             addLine('- ITIL, Six Sigma, HIPAA, GDPR, PCI compliance');
             addLine('- Leadership and contractor management');
-            addLine('- Microsoft System Center suite (SCOM, SCCM, SCSM, Orchestrator)');
         }
         else if (lowerCmd === 'get-education') {
             addLine('EDUCATION:', 'success');
             addLine('INSTITUTO SUPERIOR PARTICULAR INCORPORADO Nº 4011 "GRAL. MANUEL BELGRANO"');
-            addLine('System Analyst Degree. 3 credits left to completion.');
+            addLine('System Analyst Degree.');
             
             addLine('ESCUELA MEDIA PARTICULAR INCORPORADA N° 3105 "SANTA TERESITA DEL NIÑO JESÚS".');
             addLine('Humanities and Social Sciences Degree.');
         }
         else if (lowerCmd === 'get-contact') {
             addLine('CONTACT INFORMATION:', 'success');
-            addLine('Location: Málaga (29006), Spain');
+            addLine('Location: Greater Granada Metropolitan Area (18200), Spain');
             addLine('Phone: +34 617 56 09 17');
             addLine('Email: leandro.galeano@live.com');
             addLine('LinkedIn: https://www.linkedin.com/in/leandro-galeano');
@@ -109,11 +114,15 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         else if (lowerCmd === 'get-projects') {
             addLine('HIGHLIGHTED PROJECTS:', 'success');
+			addLine('QA TESTS REUSE FOR MONITORING (2023-ongoing):');
+            addLine('- Repurposed Playwright automated tests from QA Automation team into a source of knowledge on system status and performance');
+            addLine('- Combined several tools (Uptime-Kuma + Playwright + Docker + PostgreSQL) to achieve a geographically distributed continous testing platform');
+			
             addLine('AZURE CLOUD MIGRATION (2020-2022):');
             addLine('- Successfully migrated two core services and a testing/lab environment from physical hardware to Azure IaaS and PaaS');
             addLine('- Implemented automation using PowerShell for repetitive server maintenance tasks');
             
-            addLine('DEVOPS INFRASTRUCTURE IMPROVEMENT (2022-Present):');
+            addLine('DEVOPS INFRASTRUCTURE IMPROVEMENT (2022-2023):');
             addLine('- Delivered highly resilient and agile infrastructure using WinOps toolset');
             addLine('- Implemented cutting-edge security tools like Ilumio and CyberArk');
             
@@ -131,26 +140,38 @@ document.addEventListener("DOMContentLoaded", function() {
             addLine('Starting PowerShell session for Leandro Galeano\'s CV...');
             addLine('Type Get-Help to see available commands.', 'success');
         }
-        else if (lowerCmd === 'download-resume') {
-            addLine('Initiating download of resume...', 'success');
-            addLine('Note: This is a simulation. In a real implementation, this would download the actual PDF resume.');
+        else if (lowerCmd === 'download-cv') {
+            addLine('Initiating download of Curriculum Vitae...');
+			window.open("https://leagaleano.github.io/PersonalWebsite/Leandro_Galeano-Curriculum_Vitae-English.pdf", '_blank').focus();
+			addLine('Success!', 'success');
+			addLine('Printable version of Curriculum Vitae will open in new tab');
         }
         else if (lowerCmd === 'run-coffee.ps1') {
             addLine('☕ Brewing virtual coffee... ☕', 'success');
-            addLine('░░░░░░░░░░░░░░░░░░░░░░░░░░░░░');
-            addLine('░░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░');
-            addLine('░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░');
-            addLine('░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░');
-            addLine('░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░');
-            addLine('░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░');
-            addLine('░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░');
-            addLine('░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░');
-            addLine('░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░');
-            addLine('░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░');
-            addLine('░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░');
-            addLine('░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░');
-            addLine('░░░░░░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░');
-            addLine('░░░░░░░░░░░░░░░░░░░░░░░░░░░░░');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠈⢻⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢆⠀⠀⠙⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢧⠀⠀⠘⢿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⡆⠀⠀⠘⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⠃⠀⠀⠀⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠃⠀⠀⠀⠀⡿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡏⣀⣀⣀⠀⡜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⣀⡤⠤⠒⠒⠋⠉⠉⠻⣧⠀⠀⠀⠈⠉⠁⠀⠀⠀⠢⢄⠀⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⣾⣿⠀⠀⠀⠀⣀⣀⣀⣀⣤⣽⣦⣄⣀⣀⣀⣀⠀⠀⠀⠀⢹⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⣿⣿⣿⠷⠾⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠶⠚⠀⠀⠀⠀⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⢿⣿⡏⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⣸⠛⠻⣷⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠸⣿⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠃⠀⢠⣿⠇⠀⠀');
+			addLine('⠀⠀⠀⠀⠀⠀⠀⣹⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣎⣠⣴⠿⠃⠀⠀⠀');
+			addLine('⠀⢀⣠⠔⠒⠈⠉⠀⠹⣿⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠾⠛⠛⠉⠒⠢⣄⠀');
+			addLine('⠀⣿⡁⠀⠀⠀⠀⠀⠀⠈⢻⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣾⡃⠀⠀⠀⠀⠀⠀⠀⡟⠀');
+			addLine('⠀⠙⠻⣶⣀⠀⠀⠀⠀⠀⠀⠈⠙⠲⠦⣤⣄⣀⣀⣀⣤⣤⣾⣯⡵⠞⠋⠀⠀⠀⣀⠟⠀⠀');
+			addLine('⠀⠀⠀⠀⠉⠛⠻⠿⠿⠶⠶⠤⠤⠤⣄⣀⣀⣀⣀⣀⣀⣀⣀⡠⠤⠤⠤⠴⠖⠉⠀⠀⠀');
             addLine('Coffee break activated! Sometimes the best solutions come during a coffee break.');
         }
         else if (lowerCmd === 'help' || lowerCmd === 'get-help') {
@@ -165,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function() {
             addLine('    Get-Contact           : Display contact information');
             addLine('    Get-Projects          : View highlighted projects');
             addLine('    Clear-Host or cls     : Clear terminal screen');
-            addLine('    Download-Resume       : Download full resume as PDF');
+            addLine('    Download-cv       : Download full Curriculum Vitae as PDF');
             addLine('    Run-Coffee.ps1        : Take a coffee break!');
         }
         else if (lowerCmd === '') {
